@@ -34,9 +34,4 @@ if [ "$INSTALL_OPENMM_PREREQUISITES" = true ] ; then
     sudo tlmgr --persistent-downloads install titlesec framed threeparttable wrapfig multirow collection-fontsrecommended hyphenat xstring
 fi;
 
-# Build packages
-if [[ "${TRAVIS_PULL_REQUEST}" == "false" ]]; then
-    ./conda-build-all -vvv $UPLOAD  -- * || true;
-else
-    ./conda-build-all -vvv $UPLOAD -- *;
-fi;
+./conda-build-all $UPLOAD  -- *
