@@ -22,5 +22,5 @@ script:
 - echo $UPLOAD
 - |-
   if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-  docker run -e UPLOAD -e BINSTAR_TOKEN -e TRAVIS_PULL_REQUEST -t -i --rm -v `pwd`:/io jchodera/omnia-build-box:cuda${CUDA_SHORT_VERSION}-amd30-clang38 bash /io/devtools/docker-build.sh;
+  docker run -e UPLOAD -e BINSTAR_TOKEN -e TRAVIS_PULL_REQUEST -e CUDA_SHORT_VERSION -t -i --rm -v `pwd`:/io jchodera/omnia-build-box:cuda${CUDA_SHORT_VERSION}-amd30-clang38 bash /io/devtools/docker-build.sh;
   elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo "Building osx..."; bash devtools/osx-build.sh; fi
