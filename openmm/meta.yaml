@@ -9,6 +9,9 @@ source:
 build:
   number: 0
   skip: True # [win]
+  script_env:
+    - CUDA_VERSION
+    - CUDA_SHORT_VERSION
 
 requirements:
   build:
