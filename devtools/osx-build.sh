@@ -19,7 +19,8 @@ export INSTALL_OPENMM_PREREQUISITES=true
 if [ "$INSTALL_OPENMM_PREREQUISITES" = true ] ; then
     # Install OpenMM dependencies that can't be installed through
     # conda package manager (doxygen + CUDA)
-    brew install -y doxygen
+    # brew install -y doxygen
+    conda install --channel conda-forge doxygen
     curl -O -s http://developer.download.nvidia.com/compute/cuda/${CUDA_VERSION}/Prod/network_installers/mac/x86_64/cuda_mac_installer_tk.tar.gz
     curl -O -s http://developer.download.nvidia.com/compute/cuda/${CUDA_VERSION}/Prod/network_installers/mac/x86_64/cuda_mac_installer_drv.tar.gz
     sudo tar -zxf cuda_mac_installer_tk.tar.gz -C /;
