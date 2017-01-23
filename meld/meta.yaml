@@ -1,0 +1,54 @@
+package:
+  name: meld-cuda{{ CUDA_SHORT_VERSION }}
+  version: "0.3.0"
+
+
+source:
+  git_url: https://github.com/maccallumlab/meld.git
+  git_rev: 0.3.0
+
+build:
+  number: 0
+  skip: True # [win]
+  script_env:
+    - CUDA_VERSION
+    - CUDA_SHORT_VERSION
+
+requirements:
+  build:
+    - openmm-cuda{{ CUDA_SHORT_VERSION }}
+    - cmake
+    - doxygen
+    - python
+    - swig
+    - eigen3
+    - numpy
+    - scipy
+    - hdf4
+    - netcdf4
+    - openmm
+    - sphinx
+    - mock
+    - six
+    - sphinx_rtd_theme ==0.1.9
+
+  run:
+    - python
+    - openmm-cuda{{ CUDA_SHORT_VERSION }}
+    - ambermini
+    - numpy
+    - scipy
+    - hdf4
+    - netcdf4
+    - mock
+    - six
+
+test:
+  imports:
+    - meld
+    - meldplugin
+  commands:
+    - python -m unittest discover meld.test
+
+about:
+    home: https://meldmd.org
