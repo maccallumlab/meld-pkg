@@ -5,8 +5,6 @@ CMAKE_FLAGS="-DCMAKE_INSTALL_PREFIX=$PREFIX -DBUILD_TESTING=OFF"
 # Ensure we build a release
 CMAKE_FLAGS+=" -DCMAKE_BUILD_TYPE=Release"
 
-CUDA_VERSION="8.0"
-
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     #
     # For Docker build
@@ -93,7 +91,6 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 # Build in subdirectory and install.
-echo "***** MADE IT TO MAKE ALL ******"
 mkdir build
 cd build
 cmake .. $CMAKE_FLAGS
@@ -104,22 +101,18 @@ export CXXFLAGS="$MINIMAL_CFLAGS"
 export LDFLAGS="$LDPATHFLAGS"
 export SHLIB_LDFLAGS="$LDPATHFLAGS"
 
-echo "***** MADE IT TO API MAKE PYTHONINSTALL ******"
 make -j$CPU_COUNT install PythonInstall
 
-echo "***** MADE IT TO API CLEANUP ******"
 # Clean up paths for API docs.
 mkdir openmm-docs
 mv $PREFIX/docs/* openmm-docs
 mv openmm-docs $PREFIX/docs/openmm
 
-echo "***** MADE IT TO BUILD PDF DOCS ******"
 # Build PDF manuals
 make -j$CPU_COUNT sphinxpdf
 mv sphinx-docs/userguide/latex/*.pdf $PREFIX/docs/openmm/
 mv sphinx-docs/developerguide/latex/*.pdf $PREFIX/docs/openmm/
 
-echo "***** MADE IT TO MOVING DOCS ******"
 # Put examples into an appropriate subdirectory.
 mkdir $PREFIX/share/openmm/
 mv $PREFIX/examples $PREFIX/share/openmm/
