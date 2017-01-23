@@ -18,7 +18,7 @@ requirements:
   build:
     - openmm-cuda{{ CUDA_SHORT_VERSION }} ==7.1.0
     - cmake
-    - doxygen
+    - doxygen # [not osx]
     - python
     - swig
     - eigen3
