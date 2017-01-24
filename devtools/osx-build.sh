@@ -35,4 +35,4 @@ if [ "$INSTALL_OPENMM_PREREQUISITES" = true ] ; then
     sudo tlmgr --persistent-downloads install titlesec framed threeparttable wrapfig multirow collection-fontsrecommended hyphenat xstring
 fi;
 
-./conda-build-all $UPLOAD  -- openmm meld
+./conda-build-all $UPLOAD  --python $PYVER -- openmm meld

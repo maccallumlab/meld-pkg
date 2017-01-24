@@ -12,8 +12,12 @@ services:
 
 env:
   matrix:
-    - CUDA_VERSION="8.0" CUDA_SHORT_VERSION="80"
-    - CUDA_VERSION="7.5" CUDA_SHORT_VERSION="75"
+    - CUDA_VERSION="8.0" CUDA_SHORT_VERSION="80" PYVER=27
+    - CUDA_VERSION="7.5" CUDA_SHORT_VERSION="75" PYVER=27
+    - CUDA_VERSION="8.0" CUDA_SHORT_VERSION="80" PYVER=34
+    - CUDA_VERSION="7.5" CUDA_SHORT_VERSION="75" PYVER=34
+    - CUDA_VERSION="8.0" CUDA_SHORT_VERSION="80" PYVER=35
+    - CUDA_VERSION="7.5" CUDA_SHORT_VERSION="75" PYVER=35
   global:
     - secure: UxlnXkvBDVMv0oYJsFWmIigHKH/rK6z4EIkj3HvFF8NPLKPaPLbz5Gn5KSu1iGAkg1+2kqnzC1F07SO4pFGOceWmqcc0u9IW6RJsCZGHsxcVenqAx/4ohdwBwe/LUHOif/Rr/XnDG9d55px6rYEXdj2Oyj5VhdzNiah+3w7YEpAaj/XCnXeUq0Y+ajMAB8lY7rGe3ZQ6pq8rpr9qp7HwsrlOhpE6Kzk3WRTpBEQyoE55t3SYQCa9wkLG9dm7wdlsljhN9uYqvreOGuIv4gdGVb2kWSgqs+e3cXCYC167aBwZT4sNkID523TTOw5TtILhEmu/mh+7QJvJsAIWnYzzw+q3uVbRM4PN65G0L0M/g6eBipIHcUuWYQlF4s/jrwG+xjViAAIsTIcBxC8UCbQZOblktBk3MLO5vaj5zeE7ybz46M7EoA9cVS0mzu0Y555DoVji6IvM8wQlRD4AhTym9ZsCsKfqA4tsKamFgQ0GlHvoH89ywtw2YHNt6N1w2WcYBAJK2cq/PWgI0ZLL4/KeGiqpYTlYQHwRj/RN/WW3dMEHE0vBgxytZkXUibsQg+jZuCeVvaLTMiOIw+Kv96Yl8iwq6Obvq1xLvUHgGJZJ3sG8aGUAdYt7+QIDI3A6aul2ygmMZdvxA+vuAZmCn7hOt/QFawi/LahGjOwxWoNS8jQ=
 
@@ -26,5 +30,5 @@ script:
   - echo $UPLOAD
   - |-
     if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    docker run -e UPLOAD -e BINSTAR_TOKEN -e TRAVIS_PULL_REQUEST -e CUDA_VERSION -e CUDA_SHORT_VERSION -t -i --rm -v `pwd`:/io jchodera/omnia-build-box:cuda${CUDA_SHORT_VERSION}-amd30-clang38 bash /io/devtools/docker-build.sh;
+    docker run -e PYVER -e UPLOAD -e BINSTAR_TOKEN -e TRAVIS_PULL_REQUEST -e CUDA_VERSION -e CUDA_SHORT_VERSION -t -i --rm -v `pwd`:/io jchodera/omnia-build-box:cuda${CUDA_SHORT_VERSION}-amd30-clang38 bash /io/devtools/docker-build.sh;
     elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo "Building osx..."; bash devtools/osx-build.sh; fi
