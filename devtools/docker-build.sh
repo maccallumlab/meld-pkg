@@ -14,4 +14,4 @@ conda config --add channels omnia
 conda config --add channels maccallum_lab
 conda install -yq conda-build jinja2 anaconda-client
 
-/io/conda-build-all $UPLOAD --python $PYVER -- /io/openmm /io/meld
+/io/conda-build-all --force $UPLOAD --python $PYVER -- /io/openmm /io/meld
