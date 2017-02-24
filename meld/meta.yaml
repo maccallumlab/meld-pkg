@@ -1,10 +1,10 @@
 package:
   name: meld-cuda{{ CUDA_SHORT_VERSION }}
-  version: "0.3.8"
+  version: "0.3.9"
 
 source:
   git_url: https://github.com/maccallumlab/meld.git
-  git_rev: 0.3.8
+  git_rev: 0.3.9
 
 build:
   number: 0
