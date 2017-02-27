@@ -108,11 +108,6 @@ mkdir openmm-docs
 mv $PREFIX/docs/* openmm-docs
 mv openmm-docs $PREFIX/docs/openmm
 
-# Build PDF manuals
-make -j$CPU_COUNT sphinxpdf
-mv sphinx-docs/userguide/latex/*.pdf $PREFIX/docs/openmm/
-mv sphinx-docs/developerguide/latex/*.pdf $PREFIX/docs/openmm/
-
 # Put examples into an appropriate subdirectory.
 mkdir $PREFIX/share/openmm/
 mv $PREFIX/examples $PREFIX/share/openmm/
