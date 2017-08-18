@@ -13,7 +13,7 @@ export PATH=$HOME/anaconda/bin:$PATH;
 conda config --add channels omnia;
 conda config --add channels maccallum_lab
 conda config --show;
-conda install -yq conda-build jinja2 anaconda-client;
+conda install -yq conda-build=2.1.17 jinja2 anaconda-client;
 
 #export INSTALL_CUDA=`./conda-build-all --dry-run -- openmm`
 export INSTALL_OPENMM_PREREQUISITES=true
