@@ -253,6 +253,8 @@ def upload_to_binstar(m, python, numpy, username, max_retries=5,
     cmd = ['anaconda']
     if BINSTAR_TOKEN is not None:
         cmd.extend(['-t', BINSTAR_TOKEN])
+    else:
+        raise RuntimeError('Do not have binstar token')
     cmd.extend(['upload', '--no-progress', '-u', username, filename])
     if force:
         cmd.extend(['--force'])

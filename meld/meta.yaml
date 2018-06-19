@@ -15,7 +15,7 @@ build:
 
 requirements:
   build:
-    - openmm-cuda{{ CUDA_SHORT_VERSION }} ==7.1.0
+    - openmm-cuda{{ CUDA_SHORT_VERSION }} ==7.2.2
     - cmake
     - doxygen # [not osx]
     - python
@@ -31,10 +31,11 @@ requirements:
     - six
     - sphinx_rtd_theme ==0.1.9
     - mpi4py
+    - clangdev ==6.0.0
 
   run:
     - python
-    - openmm-cuda{{ CUDA_SHORT_VERSION }} ==7.1.0
+    - openmm-cuda{{ CUDA_SHORT_VERSION }} ==7.2.2
     - ambermini
     - numpy
     - scipy

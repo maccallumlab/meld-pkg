@@ -1,7 +1,7 @@
+group: deprecated-2017Q
+
 os:
   - linux
-  - osx
-osx_image: xcode6.4
 
 language: c
 
@@ -12,23 +12,21 @@ services:
 
 env:
   matrix:
-    - CUDA_VERSION="8.0" CUDA_SHORT_VERSION="80" PYVER=27
-    - CUDA_VERSION="7.5" CUDA_SHORT_VERSION="75" PYVER=27
-    - CUDA_VERSION="8.0" CUDA_SHORT_VERSION="80" PYVER=34
-    - CUDA_VERSION="7.5" CUDA_SHORT_VERSION="75" PYVER=34
-    - CUDA_VERSION="8.0" CUDA_SHORT_VERSION="80" PYVER=35
-    - CUDA_VERSION="7.5" CUDA_SHORT_VERSION="75" PYVER=35
+    - CUDA_VERSION="7.5" CUDA_SHORT_VERSION="75" PYVER=36
+    - CUDA_VERSION="8.0" CUDA_SHORT_VERSION="80" PYVER=36
+    - CUDA_VERSION="9.0" CUDA_SHORT_VERSION="90" PYVER=36
+    - CUDA_VERSION="9.2" CUDA_SHORT_VERSION="92" PYVER=36
+
   global:
-    - secure: UxlnXkvBDVMv0oYJsFWmIigHKH/rK6z4EIkj3HvFF8NPLKPaPLbz5Gn5KSu1iGAkg1+2kqnzC1F07SO4pFGOceWmqcc0u9IW6RJsCZGHsxcVenqAx/4ohdwBwe/LUHOif/Rr/XnDG9d55px6rYEXdj2Oyj5VhdzNiah+3w7YEpAaj/XCnXeUq0Y+ajMAB8lY7rGe3ZQ6pq8rpr9qp7HwsrlOhpE6Kzk3WRTpBEQyoE55t3SYQCa9wkLG9dm7wdlsljhN9uYqvreOGuIv4gdGVb2kWSgqs+e3cXCYC167aBwZT4sNkID523TTOw5TtILhEmu/mh+7QJvJsAIWnYzzw+q3uVbRM4PN65G0L0M/g6eBipIHcUuWYQlF4s/jrwG+xjViAAIsTIcBxC8UCbQZOblktBk3MLO5vaj5zeE7ybz46M7EoA9cVS0mzu0Y555DoVji6IvM8wQlRD4AhTym9ZsCsKfqA4tsKamFgQ0GlHvoH89ywtw2YHNt6N1w2WcYBAJK2cq/PWgI0ZLL4/KeGiqpYTlYQHwRj/RN/WW3dMEHE0vBgxytZkXUibsQg+jZuCeVvaLTMiOIw+Kv96Yl8iwq6Obvq1xLvUHgGJZJ3sG8aGUAdYt7+QIDI3A6aul2ygmMZdvxA+vuAZmCn7hOt/QFawi/LahGjOwxWoNS8jQ=
+    - secure: "QWvcw6Mnrdp15yfciPVAAx+Q920BSZGneItxJceijdS4UutPTHQdHmwa7q3UvAOdLzZiOBjESckNu8aNX5vF6PhHQfi/4N9DXvAtRSYpyqwxSWy45ivgW8DIP2f8EMfYZfYSaOg56mi6yp7Xde7TjL59ydqcgA2qWtpcAjxvfBEvQD8Puw7bTEuAsnK0Yde5/kmXnb4+IgAJ4uRKf+d+EIjyAZze8vdu/CoqfOZ3Z4IP/AzPRfAKC8G9fc5+2CG4lEqDnD/8NOh4jmv3xjH49hbxVds/i3J60vXrnkmiiDfHpkUzZmb6aHsH2zqKBi5/SsyHTICRNc1uDUNDF8x8NqZGoFSYjs6Yn480xHC2Z5GQb3M5rQxHIHI1RkE+AYAr8Vq8hWZ4bl9fIUEGNFP8f0ADMPeJ8LW6TIQjWar+JeiCxIvvZX3g25/cwMHH16k8I39/E26sPNGIbNLOidTGI3IIIlrR3X2rkXHwRyvldzck1A1vMQPATPHMSzs8bHOImwQAyJhNdEoMBc9hBBouwSf01sFB4nThe7PYkjoI902WNvrstXS/eWO4aJYeToXEbKWZLrSfgGkFqL7AF09W2+Q+8YvCJbxd/z87IGoIzpZKH7epWhRjHHV4S4PTM7R17v6V6Wnoe1i6oStiFt784F+UouzyRAmbE94DnG8DIKY="
 
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then docker pull jchodera/omnia-build-box:cuda${CUDA_SHORT_VERSION}-amd30-clang38;
-    fi
+  - docker pull jchodera/omnia-linux-anvil:texlive18-cuda${CUDA_SHORT_VERSION};
+  
+
 script:
   - if [[ "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]];
     then export UPLOAD="--upload maccallum_lab"; else export UPLOAD=" "; fi
   - echo $UPLOAD
   - |-
-    if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    docker run -e PYVER -e UPLOAD -e BINSTAR_TOKEN -e TRAVIS_PULL_REQUEST -e CUDA_VERSION -e CUDA_SHORT_VERSION -t -i --rm -v `pwd`:/io jchodera/omnia-build-box:cuda${CUDA_SHORT_VERSION}-amd30-clang38 bash /io/devtools/docker-build.sh;
-    elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then echo "Building osx..."; bash devtools/osx-build.sh; fi
+    docker run -e PYVER -e UPLOAD -e BINSTAR_TOKEN -e TRAVIS_PULL_REQUEST -e CUDA_VERSION -e CUDA_SHORT_VERSION -t -i --rm -v `pwd`:/io jchodera/omnia-linux-anvil:texlive18-cuda${CUDA_SHORT_VERSION} bash /io/devtools/docker-build.sh;
