@@ -1,32 +1,27 @@
 group: deprecated-2017Q
-
 os:
-  - linux
-
+- linux
 language: c
-
 sudo: required
-
 services:
-  - docker
-
+- docker
 env:
   matrix:
-    - CUDA_VERSION="7.5" CUDA_SHORT_VERSION="75" PYVER=36
-    - CUDA_VERSION="8.0" CUDA_SHORT_VERSION="80" PYVER=36
-    - CUDA_VERSION="9.0" CUDA_SHORT_VERSION="90" PYVER=36
-    - CUDA_VERSION="9.2" CUDA_SHORT_VERSION="92" PYVER=36
-
+  - CUDA_VERSION="7.5" CUDA_SHORT_VERSION="75" PYVER=36
+  - CUDA_VERSION="8.0" CUDA_SHORT_VERSION="80" PYVER=36
+  - CUDA_VERSION="9.0" CUDA_SHORT_VERSION="90" PYVER=36
+  - CUDA_VERSION="9.2" CUDA_SHORT_VERSION="92" PYVER=36
   global:
-    - secure: "QWvcw6Mnrdp15yfciPVAAx+Q920BSZGneItxJceijdS4UutPTHQdHmwa7q3UvAOdLzZiOBjESckNu8aNX5vF6PhHQfi/4N9DXvAtRSYpyqwxSWy45ivgW8DIP2f8EMfYZfYSaOg56mi6yp7Xde7TjL59ydqcgA2qWtpcAjxvfBEvQD8Puw7bTEuAsnK0Yde5/kmXnb4+IgAJ4uRKf+d+EIjyAZze8vdu/CoqfOZ3Z4IP/AzPRfAKC8G9fc5+2CG4lEqDnD/8NOh4jmv3xjH49hbxVds/i3J60vXrnkmiiDfHpkUzZmb6aHsH2zqKBi5/SsyHTICRNc1uDUNDF8x8NqZGoFSYjs6Yn480xHC2Z5GQb3M5rQxHIHI1RkE+AYAr8Vq8hWZ4bl9fIUEGNFP8f0ADMPeJ8LW6TIQjWar+JeiCxIvvZX3g25/cwMHH16k8I39/E26sPNGIbNLOidTGI3IIIlrR3X2rkXHwRyvldzck1A1vMQPATPHMSzs8bHOImwQAyJhNdEoMBc9hBBouwSf01sFB4nThe7PYkjoI902WNvrstXS/eWO4aJYeToXEbKWZLrSfgGkFqL7AF09W2+Q+8YvCJbxd/z87IGoIzpZKH7epWhRjHHV4S4PTM7R17v6V6Wnoe1i6oStiFt784F+UouzyRAmbE94DnG8DIKY="
-
+  - secure: QWvcw6Mnrdp15yfciPVAAx+Q920BSZGneItxJceijdS4UutPTHQdHmwa7q3UvAOdLzZiOBjESckNu8aNX5vF6PhHQfi/4N9DXvAtRSYpyqwxSWy45ivgW8DIP2f8EMfYZfYSaOg56mi6yp7Xde7TjL59ydqcgA2qWtpcAjxvfBEvQD8Puw7bTEuAsnK0Yde5/kmXnb4+IgAJ4uRKf+d+EIjyAZze8vdu/CoqfOZ3Z4IP/AzPRfAKC8G9fc5+2CG4lEqDnD/8NOh4jmv3xjH49hbxVds/i3J60vXrnkmiiDfHpkUzZmb6aHsH2zqKBi5/SsyHTICRNc1uDUNDF8x8NqZGoFSYjs6Yn480xHC2Z5GQb3M5rQxHIHI1RkE+AYAr8Vq8hWZ4bl9fIUEGNFP8f0ADMPeJ8LW6TIQjWar+JeiCxIvvZX3g25/cwMHH16k8I39/E26sPNGIbNLOidTGI3IIIlrR3X2rkXHwRyvldzck1A1vMQPATPHMSzs8bHOImwQAyJhNdEoMBc9hBBouwSf01sFB4nThe7PYkjoI902WNvrstXS/eWO4aJYeToXEbKWZLrSfgGkFqL7AF09W2+Q+8YvCJbxd/z87IGoIzpZKH7epWhRjHHV4S4PTM7R17v6V6Wnoe1i6oStiFt784F+UouzyRAmbE94DnG8DIKY=
 install:
-  - docker pull jchodera/omnia-linux-anvil:texlive18-cuda${CUDA_SHORT_VERSION};
-  
-
+- docker pull jchodera/omnia-linux-anvil:texlive18-cuda${CUDA_SHORT_VERSION};
 script:
-  - if [[ "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]];
-    then export UPLOAD="--upload maccallum_lab"; else export UPLOAD=" "; fi
-  - echo $UPLOAD
-  - |-
-    docker run -e PYVER -e UPLOAD -e BINSTAR_TOKEN -e TRAVIS_PULL_REQUEST -e CUDA_VERSION -e CUDA_SHORT_VERSION -t -i --rm -v `pwd`:/io jchodera/omnia-linux-anvil:texlive18-cuda${CUDA_SHORT_VERSION} bash /io/devtools/docker-build.sh;
+- if [[ "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]];
+  then export UPLOAD="--upload maccallum_lab"; else export UPLOAD=" "; fi
+- echo $UPLOAD
+- docker run -e PYVER -e UPLOAD -e BINSTAR_TOKEN -e TRAVIS_PULL_REQUEST -e CUDA_VERSION
+  -e CUDA_SHORT_VERSION -t -i --rm -v `pwd`:/io jchodera/omnia-linux-anvil:texlive18-cuda${CUDA_SHORT_VERSION}
+  bash /io/devtools/docker-build.sh;
+notifications:
+  slack:
+    secure: OCn293tq+Gj4dWMvPR1CjQPLrNp2FACHGhxbrFfaGNGf8D3EtYzvqx4ftOl02IXgPbBVdWxQh3A8E4HU/gBGaBDuLppqxMmqJ5JDbXWMQgut+sDzQdRvG5kL9JUXmD3h3Vz014Eeo+Z4nItuTGOi3Ja51E3kXrj58yxk58Pvp9LWadBriI2P2Bh1YtVmfom3QX8IsqzOV45qBoE4u6lIvpq4Z/fHmNqPRSqnLJPz62QEpa3EkI2tZBz+i7KNMq38TRM8bRrCkncaf3d5lQHrdzM/mFfS1P5yt18zlKcVFyfR97XVilGQY1CzPiCASlwFIASJqpyAzUabkEyIh21XHXC9AIKx0OS4LZBCw5Qc40uC6KyEBool8joW9KLkRcu8lHcrBS+9/47lODxW78/wpzlAmGhCEjnW4GxSg+Q3orA7OhU0uGzxUBVji04FpNmJT4sNtbYEe/lkdM79mbpFqs6Jogx7zWyLIuSvbkUV5EoB4PamTkWE+yXCVOAwTLyaVRWM8gGYHYY+4FcijCr+1mP0hVecOP/cYVPd13AjEStNbnEPkRZfZUzffUYfg5ZogSnuhovV8jfHv8UKRR0i0uKh4ApWy/McKVEoVxSgZ3rxiYUlYbQlgY459E51siEkVSm4s4LixIuzMFPFrtOFrzSrKtezf5Ta6WZRaC//wuk=
