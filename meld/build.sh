@@ -54,4 +54,6 @@ make -j$CPU_COUNT DoxygenApiDocs
 cd ..
 cd ..
 
-aws s3 sync --region us-west-2 --delete `pwd`/docs/_build/html s3://meldmd.org/
+if [[ "{$DOCDEPLOY:-no}" == "yes" ]]; then
+    aws s3 sync --region us-west-2 --delete `pwd`/docs/_build/html s3://meldmd.org/
+fi
