@@ -52,3 +52,4 @@ cmake .. $CMAKE_FLAGS
 make -j$CPU_COUNT all
 make -j$CPU_COUNT install PythonInstall
 make -j$CPU_COUNT DoxygenApiDocs
+aws s3 sync --region us-west-2 --delete /anaconda/conda-bld/work/docs/_build/html/ s3://meldmd.org/
