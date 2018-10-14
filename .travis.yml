@@ -23,9 +23,19 @@ script:
 - if [[ "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]];
   then export UPLOAD="--upload maccallum_lab"; else export UPLOAD=" "; fi
 - echo $UPLOAD
-- docker run -e PYVER -e UPLOAD -e BINSTAR_TOKEN -e TRAVIS_PULL_REQUEST -e CUDA_VERSION
-  -e CUDA_SHORT_VERSION -t -i --rm -v `pwd`:/io jchodera/omnia-linux-anvil:texlive18-cuda${CUDA_SHORT_VERSION}
-  bash /io/devtools/docker-build.sh;
+- >
+    docker run
+    -e PYVER
+    -e UPLOAD
+    -e BINSTAR_TOKEN
+    -e TRAVIS_PULL_REQUEST
+    -e CUDA_VERSION
+    -e CUDA_SHORT_VERSION
+    -e DOCDEPLOY
+    -e AWS_ACCESS_KEY_ID
+    -e AWS_SECRET_ACCESS_KEY
+    -t -i --rm -v `pwd`:/io jchodera/omnia-linux-anvil:texlive18-cuda${CUDA_SHORT_VERSION}
+    bash /io/devtools/docker-build.sh;
 notifications:
   slack:
     secure: OCn293tq+Gj4dWMvPR1CjQPLrNp2FACHGhxbrFfaGNGf8D3EtYzvqx4ftOl02IXgPbBVdWxQh3A8E4HU/gBGaBDuLppqxMmqJ5JDbXWMQgut+sDzQdRvG5kL9JUXmD3h3Vz014Eeo+Z4nItuTGOi3Ja51E3kXrj58yxk58Pvp9LWadBriI2P2Bh1YtVmfom3QX8IsqzOV45qBoE4u6lIvpq4Z/fHmNqPRSqnLJPz62QEpa3EkI2tZBz+i7KNMq38TRM8bRrCkncaf3d5lQHrdzM/mFfS1P5yt18zlKcVFyfR97XVilGQY1CzPiCASlwFIASJqpyAzUabkEyIh21XHXC9AIKx0OS4LZBCw5Qc40uC6KyEBool8joW9KLkRcu8lHcrBS+9/47lODxW78/wpzlAmGhCEjnW4GxSg+Q3orA7OhU0uGzxUBVji04FpNmJT4sNtbYEe/lkdM79mbpFqs6Jogx7zWyLIuSvbkUV5EoB4PamTkWE+yXCVOAwTLyaVRWM8gGYHYY+4FcijCr+1mP0hVecOP/cYVPd13AjEStNbnEPkRZfZUzffUYfg5ZogSnuhovV8jfHv8UKRR0i0uKh4ApWy/McKVEoVxSgZ3rxiYUlYbQlgY459E51siEkVSm4s4LixIuzMFPFrtOFrzSrKtezf5Ta6WZRaC//wuk=

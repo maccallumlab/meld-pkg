@@ -12,6 +12,9 @@ build:
   script_env:
     - CUDA_VERSION
     - CUDA_SHORT_VERSION
+    - AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY
+    - DOCDEPLOY
 
 requirements:
   build:

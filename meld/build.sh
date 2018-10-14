@@ -54,6 +54,10 @@ make -j$CPU_COUNT DoxygenApiDocs
 cd ..
 cd ..
 
-if [[ "{$DOCDEPLOY:-no}" == "yes" ]]; then
+# upload docs to AWS
+if [[ "${DOCDEPLOY:-no}" == "yes" ]]; then
+    echo "Uploading to AWS"
     aws s3 sync --region us-west-2 --delete `pwd`/docs/_build/html s3://meldmd.org/
+else
+    echo "DOCDEPLOY not set, so not uploading to AWS"
 fi
