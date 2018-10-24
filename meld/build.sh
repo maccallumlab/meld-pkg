@@ -3,12 +3,6 @@
 # build MELD
 python setup.py install
 
-# build MELD docs
-cd docs
-pip install msmb_theme==1.2.0 numpydoc
-make html
-cd ..
-
 # build MELD plugin
 cd plugin
 CMAKE_FLAGS="-DCMAKE_INSTALL_PREFIX=$PREFIX -DBUILD_TESTING=OFF"
@@ -52,6 +46,12 @@ make -j$CPU_COUNT all
 make -j$CPU_COUNT install PythonInstall
 make -j$CPU_COUNT DoxygenApiDocs
 cd ..
+cd ..
+
+# build MELD docs
+cd docs
+pip install msmb_theme==1.2.0 numpydoc
+make html
 cd ..
 
 # upload docs to AWS
