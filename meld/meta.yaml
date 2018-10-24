@@ -28,12 +28,9 @@ requirements:
     - scipy
     - hdf4
     - netcdf4
-    - openmm
-    - sphinx
-    - mock
-    - six
-    - sphinx_rtd_theme ==0.1.9
-    - mpi4py
+    - sphinx ==1.7
+    - sphinx_rtd_theme
+    - mpi4py ==2.0.0
     - clangdev ==6.0.0
     - awscli
     - breathe
