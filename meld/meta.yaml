@@ -36,6 +36,9 @@ requirements:
     - mpi4py
     - clangdev ==6.0.0
     - awscli
+    - breathe
+    - mypy
+
 
   run:
     - python
