@@ -45,9 +45,8 @@ requirements:
     - scipy
     - hdf4
     - netcdf4
-    - mock
-    - six
-    - mpi4py
+    - mpi4py ==2.0.0
+    - scikit-learn >=0.18.0
 
 test:
   imports:
