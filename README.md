@@ -1,6 +1,6 @@
 # meld-pkg
 
-Travis-CI Build Status: ![build stats](https://travis-ci.org/maccallumlab/meld-pkg.svg?branch=master "Travis-CI Build Status")
+Travis-CI Build Status: [![build stats](https://travis-ci.org/maccallumlab/meld-pkg.svg?branch=master "Travis-CI Build Status")](https://travis-ci.org/github/maccallumlab/meld-pkg)
 
 Scripts to create cuda-specific `openmm` and `meld` packages
 
